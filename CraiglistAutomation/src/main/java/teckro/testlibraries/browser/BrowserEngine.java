@@ -1,4 +1,4 @@
-package org.example;
+package teckro.testlibraries.browser;
 
 public enum BrowserEngine {
     CHROME,
