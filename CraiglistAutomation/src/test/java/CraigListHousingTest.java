@@ -4,22 +4,38 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import teckro.testlibraries.browser.BrowserEngine;
 import teckro.testlibraries.browser.BrowserFactory;
-import teckro.testlibraries.businesslogic.CraigListHomeSection;
-import teckro.testlibraries.businesslogic.CraigListPage;
+import teckro.testlibraries.businesslogic.*;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CraigListHousingTest {
 
+    private CraigListPage craigListPage;
+    private Browser browser;
+
     @BeforeEach
     public void setUp() {
-        Browser browser = BrowserFactory.createBrowser(BrowserEngine.CHROME);
-        CraigListPage craigListPage = new CraigListPage(browser);
-        craigListPage.goHome();
+        this.browser = BrowserFactory.createBrowser(BrowserEngine.CHROME);
+        this.craigListPage = new CraigListPage(browser);
+        craigListPage.goHome("madrid");
     }
 
     @Test
     public void testExample() {
+        CraigListHousingSection craigListHousingSection =
+                craigListPage.getCraigListSections().stream()
+                        .filter(CraigListHousingSection.class::isInstance)
+                        .map(CraigListHousingSection.class::cast)
+                        .findFirst()
+                        .orElse(null);
+
+        CraigListHousingForSale craigListHousingForSale = craigListHousingSection.clickForSale();
+        SortOption
+        craigListHousingForSale.sortBy()
+
+
         assertTrue(true);
     }
 
