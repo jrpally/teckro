@@ -12,6 +12,7 @@ import teckro.testlibraries.businesslogic.*;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CraigListHousingTest {
@@ -41,10 +42,12 @@ public class CraigListHousingTest {
 
         sortBtn.openSortDropdown();
         int arrowCount = sortBtn.countArrowOptions();
-        assertTrue(arrowCount >= 2, "Expected at least two price sort options");
+        assertThat(arrowCount).withFailMessage("Expected at least two price sort options").isGreaterThanOrEqualTo(2);
         
         List<ComboBoxItem> options = sortBtn.getSortOptions();
-        assertTrue(options.stream().anyMatch(opt -> opt.getText().toLowerCase().contains("nuevo")), "Expected 'newest' (nuevo) sort option to be present");
+        assertThat(options)
+                .withFailMessage("Expected 'newest' (nuevo) sort option to be present")
+                .anyMatch(opt -> opt.getText().toLowerCase().contains("nuevo"));
     }
 
     @Test
@@ -57,21 +60,20 @@ public class CraigListHousingTest {
         sortBtn.selectOption(SortOption.PRICE_ASCENDING); // Match precio initially
         
         List<ItemForSale> ascItems = salePanel.getItemsForSale();
-        List<Integer> ascPrices = ascItems.stream()
+        List<Float> ascPrices = ascItems.stream()
             .map(ItemForSale::getPrice)
-            .filter(p -> !p.isEmpty())
-            .map(Integer::parseInt)
+            .filter(p -> p != null)
             .toList();
-        assertTrue(CraigListSalePanel.isAscending(ascPrices), "Prices should be sorted in ascending order: " + ascPrices);
+        assertThat(ascPrices).withFailMessage("Prices should be sorted in ascending order: " + ascPrices).isSorted();
 
         sortBtn.selectOption(SortOption.PRICE_DESCENDING); // We will control toggle logic from the options button
         List<ItemForSale> descItems = salePanel.getItemsForSale();
-        List<Integer> descPrices = descItems.stream()
+        List<Float> descPrices = descItems.stream()
             .map(ItemForSale::getPrice)
-            .filter(p -> !p.isEmpty())
-            .map(Integer::parseInt)
+            .filter(p -> p != null)
             .toList();
-        assertTrue(CraigListSalePanel.isDescending(descPrices), "Prices should be sorted in descending order: " + descPrices);
+        assertThat(descPrices).withFailMessage("Prices should be sorted in descending order: " + descPrices)
+                .isSortedAccordingTo(java.util.Comparator.reverseOrder());
     }
 
     @Test
@@ -86,12 +88,14 @@ public class CraigListHousingTest {
         sortBtn.openSortDropdown();
         
         int arrowCountAfterSearch = sortBtn.countArrowOptions();
-        assertTrue(arrowCountAfterSearch >= 2, "Expected price sort options after search");
+        assertThat(arrowCountAfterSearch).withFailMessage("Expected price sort options after search").isGreaterThanOrEqualTo(2);
         
         List<ComboBoxItem> options = sortBtn.getSortOptions();
         
         // "upcoming" is not displayed on Madrid's version of Craigslist, so we skip checking it here.
-        assertTrue(options.stream().anyMatch(opt -> opt.getText().toLowerCase().contains("relevan")), "Expected 'relevance' (relevancia/relevantes) sort option after search");
+        assertThat(options)
+                .withFailMessage("Expected 'relevance' (relevancia/relevantes) sort option after search")
+                .anyMatch(opt -> opt.getText().toLowerCase().contains("relevan"));
     }
 
     @AfterEach

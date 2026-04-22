@@ -56,11 +56,14 @@ public class CraigListSalePanelSortButton {
     }
 
     public void selectOption(SortOption option) {
+        teckro.testlibraries.utils.TestLogger.info("Sorting by " + option);
         openSortDropdown();
 
         ComboBoxItem item = getItem(option);
         item.waitForVisible();
         item.select();
+        page.waitForTimeout(2000); // 2 second delay to guarantee sorting occurs
+        page.screenshot(new com.microsoft.playwright.Page.ScreenshotOptions().setPath(java.nio.file.Paths.get("sort_screenshot.png")));
     }
 
     public int countArrowOptions() {

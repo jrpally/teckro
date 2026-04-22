@@ -37,22 +37,22 @@ public class CraigListSalePanel {
             .toList();
     }
 
-    public static boolean isAscending(List<Integer> values) {
+    public static boolean isAscending(List<Float> values) {
         if (values.isEmpty()) return true;
-        int prev = values.get(0);
+        Float prev = values.get(0);
         for (int i = 1; i < values.size(); i++) {
-            int current = values.get(i);
+            Float current = values.get(i);
             if (current < prev) return false;
             prev = current;
         }
         return true;
     }
 
-    public static boolean isDescending(List<Integer> values) {
+    public static boolean isDescending(List<Float> values) {
         if (values.isEmpty()) return true;
-        int prev = values.get(0);
+        Float prev = values.get(0);
         for (int i = 1; i < values.size(); i++) {
-            int current = values.get(i);
+            Float current = values.get(i);
             if (current > prev) return false;
             prev = current;
         }

@@ -34,7 +34,7 @@ public class Main {
 
 
 
-            System.out.println(page.title());
+            teckro.testlibraries.utils.TestLogger.info(page.title());
         }
     }
 }
