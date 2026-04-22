@@ -8,6 +8,6 @@ public class CraigListHousingSection extends CraigListSection {
     }
 
     public CraigListHousingForSale clickForSale() {
-        return new CraigListHousingForSale();
+        return new CraigListHousingForSale(browser);
     }
 }

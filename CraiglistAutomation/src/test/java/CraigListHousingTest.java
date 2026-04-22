@@ -1,5 +1,8 @@
 import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.Playwright;
+
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import teckro.testlibraries.browser.BrowserEngine;
@@ -13,13 +16,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CraigListHousingTest {
 
     private CraigListPage craigListPage;
-    private Browser browser;
+    private static Browser browser;
+    private static Playwright  playwright;
+
+    @BeforeAll
+    public static void beforeAll() {
+        playwright = Playwright.create();
+        browser = BrowserFactory.createBrowser(playwright, BrowserEngine.CHROME);
+    }
 
     @BeforeEach
     public void setUp() {
-        this.browser = BrowserFactory.createBrowser(BrowserEngine.CHROME);
         this.craigListPage = new CraigListPage(browser);
-        craigListPage.goHome("madrid");
+        this.craigListPage.goHome("madrid");
     }
 
     @Test
@@ -32,8 +41,8 @@ public class CraigListHousingTest {
                         .orElse(null);
 
         CraigListHousingForSale craigListHousingForSale = craigListHousingSection.clickForSale();
-        SortOption
-        craigListHousingForSale.sortBy()
+        CraigListSalePanel craigListSalePanel = craigListHousingForSale.getCraigListSalePanel();
+        CraigListSalePanelSortButton craigListSalePanelSortButton = craigListSalePanel.getCraigListPanelSortButton();
 
 
         assertTrue(true);

@@ -1,4 +1,4 @@
 package teckro.testlibraries.businesslogic;
 
-public class CraigListHousingForSale {
+public class CraigListSalePanelSortButton {
 }
