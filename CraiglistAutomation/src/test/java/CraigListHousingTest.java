@@ -11,6 +11,7 @@ import teckro.testlibraries.browser.BrowserFactory;
 import teckro.testlibraries.businesslogic.*;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -62,7 +63,7 @@ public class CraigListHousingTest {
         List<ItemForSale> ascItems = salePanel.getItemsForSale();
         List<Float> ascPrices = ascItems.stream()
             .map(ItemForSale::getPrice)
-            .filter(p -> p != null)
+            .filter(Objects::nonNull)
             .toList();
         assertThat(ascPrices).withFailMessage("Prices should be sorted in ascending order: " + ascPrices).isSorted();
 
@@ -70,7 +71,7 @@ public class CraigListHousingTest {
         List<ItemForSale> descItems = salePanel.getItemsForSale();
         List<Float> descPrices = descItems.stream()
             .map(ItemForSale::getPrice)
-            .filter(p -> p != null)
+            .filter(Objects::nonNull)
             .toList();
         assertThat(descPrices).withFailMessage("Prices should be sorted in descending order: " + descPrices)
                 .isSortedAccordingTo(java.util.Comparator.reverseOrder());

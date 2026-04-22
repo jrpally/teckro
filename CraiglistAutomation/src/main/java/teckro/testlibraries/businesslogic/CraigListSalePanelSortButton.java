@@ -39,20 +39,17 @@ public class CraigListSalePanelSortButton {
     }
 
     public ComboBoxItem getItem(SortOption option) {
-        switch (option) {
-            case PRICE_ASCENDING:
-                return new ComboBoxItemAscending(page.locator("button.cl-search-sort-mode-price-asc"), "price ascending");
-            case PRICE_DESCENDING:
-                return new ComboBoxItemDescending(page.locator("button.cl-search-sort-mode-price-desc"), "price descending");
-            case NEWEST:
-                return new ComboBoxItem(page.locator("button.cl-search-sort-mode-newest"), "newest");
-            case OLDEST:
-                return new ComboBoxItem(page.locator("button.cl-search-sort-mode-oldest"), "oldest");
-            case RELEVANCE:
-                return new ComboBoxItem(page.locator("button.cl-search-sort-mode-relevance, button.cl-search-sort-mode-relevant"), "relevance");
-            default:
-                throw new IllegalArgumentException("Unsupported option: " + option);
-        }
+        return switch (option) {
+            case PRICE_ASCENDING ->
+                    new ComboBoxItemAscending(page.locator("button.cl-search-sort-mode-price-asc"), "price ascending");
+            case PRICE_DESCENDING ->
+                    new ComboBoxItemDescending(page.locator("button.cl-search-sort-mode-price-desc"), "price descending");
+            case NEWEST -> new ComboBoxItem(page.locator("button.cl-search-sort-mode-newest"), "newest");
+            case OLDEST -> new ComboBoxItem(page.locator("button.cl-search-sort-mode-oldest"), "oldest");
+            case RELEVANCE ->
+                    new ComboBoxItem(page.locator("button.cl-search-sort-mode-relevance, button.cl-search-sort-mode-relevant"), "relevance");
+            default -> throw new IllegalArgumentException("Unsupported option: " + option);
+        };
     }
 
     public void selectOption(SortOption option) {
