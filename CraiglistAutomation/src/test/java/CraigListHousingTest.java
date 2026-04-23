@@ -64,7 +64,7 @@ public class CraigListHousingTest {
         assertThat(ascPrices).withFailMessage("Prices should be sorted in ascending order: "
                 + ascPrices).isSorted();
 
-        salePanel.getCraigListPanelSortButton().selectOption(SortOption.PRICE_DESCENDING); // We will control toggle logic from the options button
+        salePanel.getCraigListPanelSortButton().selectOption(SortOption.PRICE_DESCENDING);
         List<ItemForSale> descItems = salePanel.getItemsForSale();
         List<Float> descPrices = descItems.stream()
             .map(ItemForSale::getPrice)
