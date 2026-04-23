@@ -60,8 +60,8 @@ public class CraigListSalePanelSortButton extends WebControl {
         ComboBoxItem item = getItem(option);
         item.waitForVisible();
         item.select();
-        page.waitForTimeout(2000); // 2 second delay to guarantee sorting occurs
-        page.screenshot(new com.microsoft.playwright.Page.ScreenshotOptions().setPath(java.nio.file.Paths.get("sort_screenshot.png")));
+        page.waitForTimeout(2000);
+        page.screenshot(new Page.ScreenshotOptions().setPath(java.nio.file.Paths.get("sort_screenshot.png")));
     }
 
     public int countArrowOptions() {

@@ -3,9 +3,8 @@ package teckro.testlibraries.businesslogic;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.WaitForSelectorState;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
+import java.util.function.BiPredicate;
 import java.util.regex.Pattern;
 
 public class CraigListSalePanel {
@@ -20,13 +19,12 @@ public class CraigListSalePanel {
         return new CraigListSalePanelSortButton(page);
     }
 
+    public SearchBox getSearchBox() {
+        return new SearchBox(page);
+    }
+
     public CraigListSalePanel search(String query) {
-        Locator searchBox = page.locator("input:visible").first();
-        searchBox.fill("");
-        searchBox.type(query);
-        searchBox.press("Enter");
-        page.waitForLoadState();
-        page.waitForSelector("li", new Page.WaitForSelectorOptions().setState(WaitForSelectorState.VISIBLE));
+        getSearchBox().search(query);
         return this;
     }
 
@@ -38,23 +36,12 @@ public class CraigListSalePanel {
             .toList();
     }
 
-    public static boolean isAscending(List<Float> values) {
+    public static boolean isSorted(List<Float> values, BiPredicate<Float, Float> predicate) {
         if (values.isEmpty()) return true;
         Float prev = values.get(0);
         for (int i = 1; i < values.size(); i++) {
             Float current = values.get(i);
-            if (current < prev) return false;
-            prev = current;
-        }
-        return true;
-    }
-
-    public static boolean isDescending(List<Float> values) {
-        if (values.isEmpty()) return true;
-        Float prev = values.get(0);
-        for (int i = 1; i < values.size(); i++) {
-            Float current = values.get(i);
-            if (current > prev) return false;
+            if (!predicate.test(prev, current)) return false;
             prev = current;
         }
         return true;

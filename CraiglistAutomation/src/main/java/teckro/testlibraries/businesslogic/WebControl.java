@@ -28,7 +28,7 @@ public abstract class WebControl {
 
     public void waitForVisible() {
         if (locator != null) {
-            locator.waitFor(new com.microsoft.playwright.Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
+            locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
         }
     }
 

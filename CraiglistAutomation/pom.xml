@@ -17,7 +17,7 @@
         <dependency>
             <groupId>com.microsoft.playwright</groupId>
             <artifactId>playwright</artifactId>
-            <version>1.44.0</version> <!-- use latest if needed -->
+            <version>1.48.0</version> <!-- use latest if needed -->
         </dependency>
         <!-- JUnit 5 -->
         <dependency>
