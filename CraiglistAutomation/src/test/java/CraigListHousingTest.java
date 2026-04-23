@@ -83,7 +83,8 @@ public class CraigListHousingTest {
         salePanel.getCraigListPanelSortButton().openSortDropdown();
         
         int arrowCountAfterSearch = salePanel.getCraigListPanelSortButton().countArrowOptions();
-        assertThat(arrowCountAfterSearch).withFailMessage("Expected price sort options after search").isGreaterThanOrEqualTo(2);
+        assertThat(arrowCountAfterSearch).withFailMessage("Expected price sort options after search")
+                .isGreaterThanOrEqualTo(2);
         
         List<ComboBoxItem> options = salePanel.getCraigListPanelSortButton().getSortOptions();
         
