@@ -5,6 +5,13 @@ import java.util.logging.Logger;
 
 public class TestLogger {
     private static final Logger LOGGER = Logger.getLogger(TestLogger.class.getName());
+    
+    static {
+        // Disable console output during tests to prevent xunit-viewer parsing issues with Surefire XML
+        if (Boolean.parseBoolean(System.getenv().getOrDefault("CI", "true")) || Boolean.parseBoolean(System.getProperty("headless", "true"))) {
+            LOGGER.setLevel(Level.OFF);
+        }
+    }
 
     public static void info(String message) {
         LOGGER.info(message);
