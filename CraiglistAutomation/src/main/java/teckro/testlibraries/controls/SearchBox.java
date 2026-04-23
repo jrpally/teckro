@@ -1,4 +1,4 @@
-package teckro.testlibraries.businesslogic;
+package teckro.testlibraries.controls;
 
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.WaitForSelectorState;

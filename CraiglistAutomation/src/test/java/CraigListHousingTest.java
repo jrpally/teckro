@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 import teckro.testlibraries.browser.BrowserEngine;
 import teckro.testlibraries.browser.BrowserFactory;
 import teckro.testlibraries.businesslogic.*;
+import teckro.testlibraries.controls.*;
 
 import java.util.Comparator;
 import java.util.List;
