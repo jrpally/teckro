@@ -61,7 +61,8 @@ public class CraigListHousingTest {
             .map(ItemForSale::getPrice)
             .filter(Objects::nonNull)
             .toList();
-        assertThat(ascPrices).withFailMessage("Prices should be sorted in ascending order: " + ascPrices).isSorted();
+        assertThat(ascPrices).withFailMessage("Prices should be sorted in ascending order: "
+                + ascPrices).isSorted();
 
         salePanel.getCraigListPanelSortButton().selectOption(SortOption.PRICE_DESCENDING); // We will control toggle logic from the options button
         List<ItemForSale> descItems = salePanel.getItemsForSale();
@@ -69,8 +70,8 @@ public class CraigListHousingTest {
             .map(ItemForSale::getPrice)
             .filter(Objects::nonNull)
             .toList();
-        assertThat(descPrices).withFailMessage("Prices should be sorted in descending order: " + descPrices)
-                .isSortedAccordingTo(Comparator.reverseOrder());
+        assertThat(descPrices).withFailMessage("Prices should be sorted in descending order: "
+                        + descPrices).isSortedAccordingTo(Comparator.reverseOrder());
     }
 
     @Test

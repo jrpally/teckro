@@ -8,7 +8,8 @@ public class TestLogger {
     
     static {
         // Disable console output during tests to prevent xunit-viewer parsing issues with Surefire XML
-        if (Boolean.parseBoolean(System.getenv().getOrDefault("CI", "true")) || Boolean.parseBoolean(System.getProperty("headless", "true"))) {
+        if (Boolean.parseBoolean(System.getenv().getOrDefault("CI", "true"))
+                || Boolean.parseBoolean(System.getProperty("headless", "true"))) {
             LOGGER.setLevel(Level.OFF);
         }
     }
