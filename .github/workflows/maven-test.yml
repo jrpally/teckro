@@ -26,9 +26,13 @@ jobs:
       working-directory: CraiglistAutomation
       run: npx playwright install-deps
 
+    - name: Install Dependencies and Compile
+      working-directory: CraiglistAutomation
+      run: mvn --batch-mode --no-transfer-progress clean install -DskipTests
+
     - name: Run Maven Tests
       working-directory: CraiglistAutomation
-      run: mvn --batch-mode --no-transfer-progress clean test
+      run: mvn --batch-mode --no-transfer-progress test
 
     - name: Generate Surefire HTML Report
       working-directory: CraiglistAutomation
