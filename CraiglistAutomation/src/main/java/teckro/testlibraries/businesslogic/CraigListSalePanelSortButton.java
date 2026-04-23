@@ -17,11 +17,9 @@ public class CraigListSalePanelSortButton extends WebControl {
     private static final String SELECTOR_SORT_MODE = ".cl-search-sort-mode";
     private static final String SELECTOR_SORT_BTN = ".cl-search-sort-mode button";
     private static final String SELECTOR_NEWEST_BTN_FALLBACK = ".bd-button.cl-search-sort-mode-newest";
-    private static final String SELECTOR_SORT_OPTIONS = "div.items button";
-    
+    private static final String SELECTOR_SORT_OPTIONS = "div.items button";    
     private static final String CLASS_PRICE_ASC = "cl-search-sort-mode-price-asc";
-    private static final String CLASS_PRICE_DESC = "cl-search-sort-mode-price-desc";
-    
+    private static final String CLASS_PRICE_DESC = "cl-search-sort-mode-price-desc";    
     private static final String BTN_PRICE_ASC = "button.cl-search-sort-mode-price-asc";
     private static final String BTN_PRICE_DESC = "button.cl-search-sort-mode-price-desc";
     private static final String BTN_NEWEST = "button.cl-search-sort-mode-newest";
@@ -69,7 +67,6 @@ public class CraigListSalePanelSortButton extends WebControl {
             case OLDEST -> new ComboBoxItem(page.locator(BTN_OLDEST), "oldest");
             case RELEVANCE ->
                     new ComboBoxItem(page.locator(BTN_RELEVANCE), "relevance");
-            default -> throw new IllegalArgumentException("Unsupported option: " + option);
         };
     }
 
