@@ -28,12 +28,12 @@ jobs:
 
     - name: Run Maven Tests
       working-directory: CraiglistAutomation
-      run: mvn clean test
+      run: mvn --batch-mode --no-transfer-progress clean test
 
     - name: Generate Surefire HTML Report
       working-directory: CraiglistAutomation
       if: always() # Ensure the report executes even if tests fail
-      run: mvn surefire-report:report-only
+      run: mvn --batch-mode --no-transfer-progress surefire-report:report-only
       
     - name: Upload Surefire Test Report
       if: always() # Upload report even if the tests fail
