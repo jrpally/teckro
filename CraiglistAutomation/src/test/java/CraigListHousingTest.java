@@ -1,8 +1,4 @@
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.Playwright;
 import org.junit.jupiter.api.*;
-import teckro.testlibraries.browser.BrowserEngine;
-import teckro.testlibraries.browser.BrowserFactory;
 import teckro.testlibraries.businesslogic.*;
 import teckro.testlibraries.controls.ComboBoxItem;
 
@@ -12,27 +8,9 @@ import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CraigListHousingTest {
+public class CraigListHousingTest extends BaseTest {
 
-    private static Browser browser;
-    private static Playwright playwright;
     private CraigListPage craigListPage;
-
-    @BeforeAll
-    public static void beforeAll() {
-        playwright = Playwright.create();
-        browser = BrowserFactory.createBrowser(playwright, BrowserEngine.CHROME);
-    }
-
-    @AfterAll
-    public static void afterAll() {
-        if (browser != null) {
-            browser.close();
-        }
-        if (playwright != null) {
-            playwright.close();
-        }
-    }
 
     @BeforeEach
     public void setUp() {
