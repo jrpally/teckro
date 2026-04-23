@@ -14,11 +14,14 @@ First, navigate to the automation folder:
 ```bash
 cd CraiglistAutomation
 ```
-Normal run (open browser):
+Normal run (open browser by default):
 ```bash
 mvn clean test
+# or explicitly:
+mvn clean test -Dheadless=false
 ```
-Headless Mode (for CI pipeline or no popups):
+
+Headless Mode (for CI pipeline or to run in background):
 ```bash
 mvn clean test -Dheadless=true
 ```
