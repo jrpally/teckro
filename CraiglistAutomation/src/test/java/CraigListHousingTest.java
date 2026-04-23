@@ -1,11 +1,10 @@
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.Playwright;
-
 import org.junit.jupiter.api.*;
 import teckro.testlibraries.browser.BrowserEngine;
 import teckro.testlibraries.browser.BrowserFactory;
 import teckro.testlibraries.businesslogic.*;
-import teckro.testlibraries.controls.*;
+import teckro.testlibraries.controls.ComboBoxItem;
 
 import java.util.Comparator;
 import java.util.List;
@@ -15,14 +14,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CraigListHousingTest {
 
-    private CraigListPage craigListPage;
     private static Browser browser;
     private static Playwright playwright;
+    private CraigListPage craigListPage;
 
     @BeforeAll
     public static void beforeAll() {
         playwright = Playwright.create();
         browser = BrowserFactory.createBrowser(playwright, BrowserEngine.CHROME);
+    }
+
+    @AfterAll
+    public static void afterAll() {
+        if (browser != null) {
+            browser.close();
+        }
+        if (playwright != null) {
+            playwright.close();
+        }
     }
 
     @BeforeEach
@@ -84,7 +93,7 @@ public class CraigListHousingTest {
         assertThat(arrowCountAfterSearch).withFailMessage("Expected price sort options after search").isGreaterThanOrEqualTo(2);
 
         List<ComboBoxItem> options = sortBtn.getSortOptions();
-        
+
         assertThat(options)
                 .withFailMessage("Expected 'relevance' (relevancia/relevantes) sort option after search")
                 .anyMatch(opt -> opt.getText().toLowerCase().contains("relevan"));
@@ -94,16 +103,6 @@ public class CraigListHousingTest {
     public void tearDown() {
         if (craigListPage != null && craigListPage.getPage() != null) {
             craigListPage.getPage().close();
-        }
-    }
-
-    @AfterAll
-    public static void afterAll() {
-        if (browser != null) {
-            browser.close();
-        }
-        if (playwright != null) {
-            playwright.close();
         }
     }
 }

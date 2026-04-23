@@ -1,11 +1,7 @@
 package teckro.testlibraries.businesslogic;
 
-import teckro.testlibraries.controls.*;
-
 import com.microsoft.playwright.Locator;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.Locale;
+import teckro.testlibraries.controls.WebControl;
 
 public class ItemForSale extends WebControl {
     public ItemForSale(Locator locator) {
@@ -29,12 +25,12 @@ public class ItemForSale extends WebControl {
                 // Based on standard locale parsing
                 String langTag = (String) locator.page().evaluate("navigator.language");
                 if (langTag == null || langTag.isEmpty()) langTag = "en-US";
-                
+
                 // Hack fallback: if we are in Spain or seeing .000, force EU locale
                 if (numericText.matches(".*\\.\\d{3}$")) {
                     langTag = "es-ES";
                 }
-                
+
                 java.text.NumberFormat format = java.text.NumberFormat.getInstance(java.util.Locale.forLanguageTag(langTag));
                 return format.parse(numericText).floatValue();
             } catch (Exception e) {

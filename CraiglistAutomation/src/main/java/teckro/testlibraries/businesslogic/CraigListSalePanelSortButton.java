@@ -1,12 +1,13 @@
 package teckro.testlibraries.businesslogic;
 
-import teckro.testlibraries.controls.*;
-
-import java.util.List;
-
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.WaitForSelectorState;
+import teckro.testlibraries.controls.ComboBoxItem;
+import teckro.testlibraries.controls.ComboBoxItemAscending;
+import teckro.testlibraries.controls.ComboBoxItemDescending;
+import teckro.testlibraries.controls.WebControl;
+
+import java.util.List;
 
 public class CraigListSalePanelSortButton extends WebControl {
 
@@ -26,19 +27,19 @@ public class CraigListSalePanelSortButton extends WebControl {
 
     public List<ComboBoxItem> getSortOptions() {
         return page.locator("div.items button").all()
-            .stream()
-            .map(loc -> {
-                String className = loc.getAttribute("class");
-                String text = loc.innerText();
-                if (className != null && className.contains("cl-search-sort-mode-price-asc")) {
-                    return new ComboBoxItemAscending(loc, text);
-                } else if (className != null && className.contains("cl-search-sort-mode-price-desc")) {
-                    return new ComboBoxItemDescending(loc, text);
-                } else {
-                    return new ComboBoxItem(loc, text);
-                }
-            })
-            .toList();
+                .stream()
+                .map(loc -> {
+                    String className = loc.getAttribute("class");
+                    String text = loc.innerText();
+                    if (className != null && className.contains("cl-search-sort-mode-price-asc")) {
+                        return new ComboBoxItemAscending(loc, text);
+                    } else if (className != null && className.contains("cl-search-sort-mode-price-desc")) {
+                        return new ComboBoxItemDescending(loc, text);
+                    } else {
+                        return new ComboBoxItem(loc, text);
+                    }
+                })
+                .toList();
     }
 
     public ComboBoxItem getItem(SortOption option) {

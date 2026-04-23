@@ -1,8 +1,7 @@
 package teckro.testlibraries.businesslogic;
 
-import teckro.testlibraries.controls.*;
-
 import com.microsoft.playwright.Page;
+import teckro.testlibraries.controls.WebControl;
 
 public abstract class CraigListSection extends WebControl {
     public CraigListSection(Page page) {

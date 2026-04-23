@@ -7,8 +7,7 @@ import com.microsoft.playwright.Playwright;
 public class BrowserFactory {
 
     public static Browser createBrowser(Playwright playwright, BrowserEngine engine) {
-        boolean isHeadless = Boolean.parseBoolean(System.getenv().getOrDefault("CI", "false"))
-                || Boolean.parseBoolean(System.getProperty("headless", "false"));
+        boolean isHeadless = Boolean.parseBoolean(System.getenv().getOrDefault("CI", "false")) || Boolean.parseBoolean(System.getProperty("headless", "false"));
         BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions().setHeadless(isHeadless);
         return switch (engine) {
             case CHROME -> playwright.chromium().launch(launchOptions);
@@ -19,8 +18,7 @@ public class BrowserFactory {
             case IE, OPERA, SAFARI ->
                     throw new UnsupportedOperationException(engine + " is not supported by Playwright");
 
-            default ->
-                    throw new IllegalArgumentException("Unknown browser: " + engine);
+            default -> throw new IllegalArgumentException("Unknown browser: " + engine);
         };
     }
 }
