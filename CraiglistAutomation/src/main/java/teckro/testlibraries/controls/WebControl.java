@@ -7,7 +7,7 @@ import com.microsoft.playwright.options.WaitForSelectorState;
 
 public abstract class WebControl {
     protected Page page;
-    protected com.microsoft.playwright.Locator locator;
+    protected Locator locator;
 
     public WebControl(Page page) {
         this.page = page;

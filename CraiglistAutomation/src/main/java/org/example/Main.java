@@ -2,6 +2,7 @@ package org.example;
 import com.microsoft.playwright.*;
 import teckro.testlibraries.browser.BrowserEngine;
 import teckro.testlibraries.browser.BrowserFactory;
+import teckro.testlibraries.utils.TestLogger;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -34,7 +35,7 @@ public class Main {
 
 
 
-            teckro.testlibraries.utils.TestLogger.info(page.title());
+            TestLogger.info(page.title());
         }
     }
 }

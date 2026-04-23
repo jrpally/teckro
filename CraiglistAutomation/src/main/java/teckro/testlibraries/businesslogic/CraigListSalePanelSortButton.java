@@ -6,7 +6,9 @@ import teckro.testlibraries.controls.ComboBoxItem;
 import teckro.testlibraries.controls.ComboBoxItemAscending;
 import teckro.testlibraries.controls.ComboBoxItemDescending;
 import teckro.testlibraries.controls.WebControl;
+import teckro.testlibraries.utils.TestLogger;
 
+import java.nio.file.Paths;
 import java.util.List;
 
 public class CraigListSalePanelSortButton extends WebControl {
@@ -57,14 +59,14 @@ public class CraigListSalePanelSortButton extends WebControl {
     }
 
     public void selectOption(SortOption option) {
-        teckro.testlibraries.utils.TestLogger.info("Sorting by " + option);
+        TestLogger.info("Sorting by " + option);
         openSortDropdown();
 
         ComboBoxItem item = getItem(option);
         item.waitForVisible();
         item.select();
         page.waitForTimeout(2000);
-        page.screenshot(new Page.ScreenshotOptions().setPath(java.nio.file.Paths.get("sort_screenshot.png")));
+        page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("sort_screenshot.png")));
     }
 
     public int countArrowOptions() {

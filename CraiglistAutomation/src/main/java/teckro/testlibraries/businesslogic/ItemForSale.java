@@ -1,6 +1,10 @@
 package teckro.testlibraries.businesslogic;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import com.microsoft.playwright.Locator;
+
 import teckro.testlibraries.controls.WebControl;
 
 public class ItemForSale extends WebControl {
@@ -20,18 +24,15 @@ public class ItemForSale extends WebControl {
             if (numericText.isEmpty()) {
                 return null;
             }
-            try {
-                // If it ends with .00 or ,00, maybe strip it. If it has .000 it might be thousand separation.
-                // Based on standard locale parsing
+            try {                
                 String langTag = (String) locator.page().evaluate("navigator.language");
                 if (langTag == null || langTag.isEmpty()) langTag = "en-US";
-
-                // Hack fallback: if we are in Spain or seeing .000, force EU locale
+                
                 if (numericText.matches(".*\\.\\d{3}$")) {
                     langTag = "es-ES";
                 }
 
-                java.text.NumberFormat format = java.text.NumberFormat.getInstance(java.util.Locale.forLanguageTag(langTag));
+                NumberFormat format = NumberFormat.getInstance(Locale.forLanguageTag(langTag));
                 return format.parse(numericText).floatValue();
             } catch (Exception e) {
                 try {
