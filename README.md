@@ -10,6 +10,10 @@ Make sure you instaled:
 - [Node.js & npm](https://nodejs.org/) (for the html reports)
 
 ## Run Tests
+First, navigate to the automation folder:
+```bash
+cd CraiglistAutomation
+```
 Normal run (open browser):
 ```bash
 mvn clean test
@@ -20,15 +24,15 @@ mvn clean test -Dheadless=true
 ```
 
 ## HTML Report
-To turn the xml files into a single cool html report just run:
+To turn the xml files into a single cool html report just run (from inside `CraiglistAutomation`):
 ```bash
 npx xunit-viewer -r target/surefire-reports -o target/test-results.html
 ```
 *(Note: I specificly muted the console output during tests because `xunit-viewer` was crashing parsing long `@DisplayName` texts!)*
 
 ## Folders
-- `src/main/java...` - Browser setup, Page objects and Utils (`TestLogger` is silence here during tests).
-- `src/test/java...` - The JUnit 5 tests.
+- `CraiglistAutomation/src/main/java...` - Browser setup, Page objects and Utils (`TestLogger` is silence here during tests).
+- `CraiglistAutomation/src/test/java...` - The JUnit 5 tests.
 
 ## CI pipeline
 GitHub Actions is configured. On push or PR it will automaticly compile, install dependencies, run the tests headless, and save the html report.
