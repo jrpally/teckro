@@ -20,13 +20,14 @@ public class CraigListSalePanel {
         return new CraigListSalePanelSortButton(page);
     }
 
-    public void search(String query) {
+    public CraigListSalePanel search(String query) {
         Locator searchBox = page.locator("input:visible").first();
         searchBox.fill("");
         searchBox.type(query);
         searchBox.press("Enter");
         page.waitForLoadState();
         page.waitForSelector("li", new Page.WaitForSelectorOptions().setState(WaitForSelectorState.VISIBLE));
+        return this;
     }
 
     public List<ItemForSale> getItemsForSale() {

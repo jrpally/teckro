@@ -1,7 +1,6 @@
 package teckro.testlibraries.businesslogic;
 
 import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.Page;
 import teckro.testlibraries.browser.WebPage;
 
 import java.net.URI;
@@ -23,7 +22,7 @@ public class CraigListPage extends WebPage {
     }
 
     public List<CraigListSection> getCraigListSections() {
-        return List.of(new CraigListHousingSection(this.browser, this.getPage()));
+        return List.of(new CraigListHousingSection(this.getPage()));
     }
 
     public CraigListHousingForSale navigateToHousingForSale() {

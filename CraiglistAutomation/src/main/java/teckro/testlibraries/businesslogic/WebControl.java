@@ -6,25 +6,20 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.WaitForSelectorState;
 
 public abstract class WebControl {
-    protected final Browser browser;
     protected Page page;
     protected com.microsoft.playwright.Locator locator;
 
-    public WebControl(Browser browser, Page page) {
-        this.browser = browser;
+    public WebControl(Page page) {
         this.page = page;
-    }
-
-    public WebControl(Browser browser, Page page, Locator locator) {
-        this.browser = browser;
-        this.page = page;
-        this.locator = locator;
     }
 
     public WebControl(Locator locator) {
-        this.browser = null;
         this.page = locator.page();
         this.locator = locator;
+    }
+
+    public Browser getBrowser() {
+        return page.context().browser();
     }
 
     public void waitForVisible(String selector) {

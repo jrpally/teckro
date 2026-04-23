@@ -10,11 +10,11 @@ import teckro.testlibraries.browser.BrowserEngine;
 import teckro.testlibraries.browser.BrowserFactory;
 import teckro.testlibraries.businesslogic.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CraigListHousingTest {
 
@@ -36,16 +36,14 @@ public class CraigListHousingTest {
 
     @Test
     @DisplayName("Default page shows price ascending, descending and newest sort options")
-    public void testDefaultSortOptions() {
-        CraigListHousingForSale housingForSale = craigListPage.navigateToHousingForSale();
-        CraigListSalePanel salePanel = housingForSale.getCraigListSalePanel();
-        CraigListSalePanelSortButton sortBtn = salePanel.getCraigListPanelSortButton();
-
-        sortBtn.openSortDropdown();
-        int arrowCount = sortBtn.countArrowOptions();
+    public void testDefaultSortOptions() {        
+        CraigListSalePanel salePanel = craigListPage.navigateToHousingForSale().getCraigListSalePanel();
+        salePanel.getCraigListPanelSortButton().openSortDropdown();
+        
+        int arrowCount = salePanel.getCraigListPanelSortButton().countArrowOptions();
         assertThat(arrowCount).withFailMessage("Expected at least two price sort options").isGreaterThanOrEqualTo(2);
         
-        List<ComboBoxItem> options = sortBtn.getSortOptions();
+        List<ComboBoxItem> options = salePanel.getCraigListPanelSortButton().getSortOptions();
         assertThat(options)
                 .withFailMessage("Expected 'newest' (nuevo) sort option to be present")
                 .anyMatch(opt -> opt.getText().toLowerCase().contains("nuevo"));
@@ -54,11 +52,9 @@ public class CraigListHousingTest {
     @Test
     @DisplayName("Price sorting orders listings from low to high and high to low")
     public void testPriceSorting() {
-        CraigListHousingForSale housingForSale = craigListPage.navigateToHousingForSale();
-        CraigListSalePanel salePanel = housingForSale.getCraigListSalePanel();
-        CraigListSalePanelSortButton sortBtn = salePanel.getCraigListPanelSortButton();
+        CraigListSalePanel salePanel = craigListPage.navigateToHousingForSale().getCraigListSalePanel();
 
-        sortBtn.selectOption(SortOption.PRICE_ASCENDING); // Match precio initially
+        salePanel.getCraigListPanelSortButton().selectOption(SortOption.PRICE_ASCENDING); 
         
         List<ItemForSale> ascItems = salePanel.getItemsForSale();
         List<Float> ascPrices = ascItems.stream()
@@ -67,31 +63,28 @@ public class CraigListHousingTest {
             .toList();
         assertThat(ascPrices).withFailMessage("Prices should be sorted in ascending order: " + ascPrices).isSorted();
 
-        sortBtn.selectOption(SortOption.PRICE_DESCENDING); // We will control toggle logic from the options button
+        salePanel.getCraigListPanelSortButton().selectOption(SortOption.PRICE_DESCENDING); // We will control toggle logic from the options button
         List<ItemForSale> descItems = salePanel.getItemsForSale();
         List<Float> descPrices = descItems.stream()
             .map(ItemForSale::getPrice)
             .filter(Objects::nonNull)
             .toList();
         assertThat(descPrices).withFailMessage("Prices should be sorted in descending order: " + descPrices)
-                .isSortedAccordingTo(java.util.Comparator.reverseOrder());
+                .isSortedAccordingTo(Comparator.reverseOrder());
     }
 
     @Test
     @DisplayName("Search results expose additional sorting options: relevance")
     public void testSortOptionsAfterSearch() {
-        CraigListHousingForSale housingForSale = craigListPage.navigateToHousingForSale();
-        CraigListSalePanel salePanel = housingForSale.getCraigListSalePanel();
-        
+        CraigListSalePanel salePanel = craigListPage.navigateToHousingForSale().getCraigListSalePanel();
         salePanel.search("house");
+            
+        salePanel.getCraigListPanelSortButton().openSortDropdown();
         
-        CraigListSalePanelSortButton sortBtn = salePanel.getCraigListPanelSortButton();
-        sortBtn.openSortDropdown();
-        
-        int arrowCountAfterSearch = sortBtn.countArrowOptions();
+        int arrowCountAfterSearch = salePanel.getCraigListPanelSortButton().countArrowOptions();
         assertThat(arrowCountAfterSearch).withFailMessage("Expected price sort options after search").isGreaterThanOrEqualTo(2);
         
-        List<ComboBoxItem> options = sortBtn.getSortOptions();
+        List<ComboBoxItem> options = salePanel.getCraigListPanelSortButton().getSortOptions();
         
         // "upcoming" is not displayed on Madrid's version of Craigslist, so we skip checking it here.
         assertThat(options)
