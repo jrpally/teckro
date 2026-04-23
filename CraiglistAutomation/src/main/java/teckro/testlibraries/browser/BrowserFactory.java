@@ -7,7 +7,8 @@ import com.microsoft.playwright.Playwright;
 public class BrowserFactory {
 
     public static Browser createBrowser(Playwright playwright, BrowserEngine engine) {
-        BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions().setHeadless(false);
+        boolean isHeadless = Boolean.parseBoolean(System.getenv().getOrDefault("CI", "false")) || Boolean.parseBoolean(System.getProperty("headless", "true"));
+        BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions().setHeadless(isHeadless);
         return switch (engine) {
             case CHROME -> playwright.chromium().launch(launchOptions);
             case FIREFOX -> playwright.firefox().launch(launchOptions);
