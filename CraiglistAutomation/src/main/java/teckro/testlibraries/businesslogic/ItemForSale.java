@@ -5,11 +5,9 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-public class ItemForSale {
-    private final Locator locator;
-
+public class ItemForSale extends WebControl {
     public ItemForSale(Locator locator) {
-        this.locator = locator;
+        super(locator);
     }
 
     public String getItemName() {

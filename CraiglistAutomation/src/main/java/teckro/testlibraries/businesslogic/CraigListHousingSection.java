@@ -10,8 +10,9 @@ public class CraigListHousingSection extends CraigListSection {
     }
 
     public CraigListHousingForSale clickForSale() {
-        page.navigate("https://madrid.craigslist.org/search/hhh");
-        page.waitForSelector("input", new Page.WaitForSelectorOptions().setState(WaitForSelectorState.VISIBLE).setTimeout(20000));
+        this.locator = page.locator("a.hhh");
+        click();
+        waitForVisible("input");
         return new CraigListHousingForSale(browser, page);
     }
 }

@@ -6,19 +6,20 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.WaitForSelectorState;
 
-public class CraigListSalePanelSortButton {
-    private final Page page;
+public class CraigListSalePanelSortButton extends WebControl {
 
     public CraigListSalePanelSortButton(Page page) {
+        super(page.locator(".cl-search-sort-mode").first());
         this.page = page;
     }
 
     public void openSortDropdown() {
-        Locator sortButton = page.locator(".cl-search-sort-mode button").first();
-        if (sortButton.count() == 0) {
-            sortButton = page.locator(".bd-button.cl-search-sort-mode-newest").first();
+        Locator btn = page.locator(".cl-search-sort-mode button").first();
+        if (btn.count() == 0) {
+            btn = page.locator(".bd-button.cl-search-sort-mode-newest").first();
         }
-        sortButton.click();
+        this.locator = btn; // make sure the locator is updated to the actual button
+        click();
     }
 
     public List<ComboBoxItem> getSortOptions() {

@@ -2,12 +2,11 @@ package teckro.testlibraries.businesslogic;
 
 import com.microsoft.playwright.Locator;
 
-public class ComboBoxItem {
-    private final Locator locator;
+public class ComboBoxItem extends WebControl {
     private final String text;
 
     public ComboBoxItem(Locator locator, String text) {
-        this.locator = locator;
+        super(locator);
         this.text = text;
     }
 
@@ -15,12 +14,8 @@ public class ComboBoxItem {
         return text;
     }
 
-    public void waitForVisible() {
-        locator.waitFor(new Locator.WaitForOptions().setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE));
-    }
-
     public void select() {
-        locator.click();
+        click();
     }
 
     @Override
