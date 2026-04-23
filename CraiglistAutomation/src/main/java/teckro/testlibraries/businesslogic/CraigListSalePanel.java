@@ -6,10 +6,9 @@ import teckro.testlibraries.controls.SearchBox;
 
 import java.util.List;
 import java.util.function.BiPredicate;
-import java.util.regex.Pattern;
 
 public class CraigListSalePanel {
-    private static final Pattern PRICE_PATTERN = Pattern.compile("[\u00A3\u20AC\\$]\u00A0?([0-9]{1,3}(?:[.,][0-9]{3})*(?:[.,][0-9]+)?)");
+    private static final String SELECTOR_GALLERY_CARD = ".gallery-card";
     private final Page page;
 
     public CraigListSalePanel(Page page) {
@@ -41,8 +40,8 @@ public class CraigListSalePanel {
     }
 
     public List<ItemForSale> getItemsForSale() {
-        page.waitForSelector(".gallery-card", new Page.WaitForSelectorOptions().setState(WaitForSelectorState.VISIBLE));
-        return page.locator(".gallery-card").all()
+        page.waitForSelector(SELECTOR_GALLERY_CARD, new Page.WaitForSelectorOptions().setState(WaitForSelectorState.VISIBLE));
+        return page.locator(SELECTOR_GALLERY_CARD).all()
                 .stream()
                 .map(ItemForSale::new)
                 .toList();
