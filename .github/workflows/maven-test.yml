@@ -22,13 +22,13 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Install Playwright OS Dependencies
-      working-directory: CraiglistAutomation
-      run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install-deps"
-
     - name: Install Dependencies and Compile
       working-directory: CraiglistAutomation
       run: mvn --batch-mode --no-transfer-progress clean install -DskipTests
+
+    - name: Install Playwright OS Dependencies
+      working-directory: CraiglistAutomation
+      run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install-deps"
 
     - name: Run Maven Tests
       working-directory: CraiglistAutomation
